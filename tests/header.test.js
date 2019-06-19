@@ -1,5 +1,7 @@
 const puppeteer = require('puppeteer');
 
+jest.setTimeout(10000); // To fix: Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout. problem
+
 let browser, page;
 
 beforeEach(async () => {
@@ -11,7 +13,7 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
-  // await browser.close();
+  await browser.close();
 });
 
 test('should expect header has correct text', async () => {
@@ -28,7 +30,7 @@ test('should start oauth flow after clicking login', async () => {
   expect(url).toMatch(/accounts\.google\.com/); // regex expression
 });
 
-test.only('should show logout button when signed in', async () => {
+test('should show logout button when signed in', async () => {
   const id = '5d097fed76e1ad26b4f17df1';
 
   const Buffer = require('safe-buffer').Buffer;
@@ -50,4 +52,9 @@ test.only('should show logout button when signed in', async () => {
   await page.setCookie({ name: 'session', value: sessionString });
   await page.setCookie({ name: 'session.sig', value: sig });
   await page.goto('localhost:3000');
+  await page.waitFor('a[href="/auth/logout"]');
+
+  const text = await page.$eval('a[href="/auth/logout"]', el => el.innerHTML);
+
+  expect(text).toEqual('Logout');
 });
