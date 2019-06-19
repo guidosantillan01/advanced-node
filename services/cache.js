@@ -8,8 +8,17 @@ client.get = util.promisify(client.get);
 
 const exec = mongoose.Query.prototype.exec;
 
+// Create .cache() function to all Queries
+mongoose.Query.prototype.cache = function() {
+  this.useCache = true;
+  return this; // Do this to be able to chain function calls Blog.find().cache().limit()... etc.
+};
+
 mongoose.Query.prototype.exec = async function() {
-  // ? `this` in this function is a reference to the query we are executing (Query.prototype.exec)
+  // ? `this` in this function is a reference to the query instance we are executing (Query.prototype.exec)
+  if (!this.useCache) {
+    return exec.apply(this, arguments);
+  }
 
   // console.log(this.getQuery());
   // console.log(this.mongooseCollection.name);
