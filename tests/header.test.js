@@ -1,21 +1,18 @@
-const puppeteer = require('puppeteer');
 const sessionFactory = require('./factories/sessionFactory');
 const userFactory = require('./factories/userFactory');
+const Page = require('./helpers/page');
 
 jest.setTimeout(10000); // To fix: Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout. problem
 
-let browser, page;
+let page;
 
 beforeEach(async () => {
-  browser = await puppeteer.launch({
-    headless: false
-  });
-  page = await browser.newPage();
+  page = await Page.build();
   await page.goto('localhost:3000');
 });
 
 afterEach(async () => {
-  await browser.close();
+  await page.close(); // browser.close()
 });
 
 test('should expect header has correct text', async () => {
