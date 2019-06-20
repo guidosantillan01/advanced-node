@@ -28,7 +28,8 @@ app.use(passport.session());
 require('./routes/authRoutes')(app);
 require('./routes/blogRoutes')(app);
 
-if (['production'].includes(process.env.NODE_ENV)) {
+if (['production', 'ci'].includes(process.env.NODE_ENV)) {
+  // If it is in production and ci environment, serve react files.
   app.use(express.static('client/build'));
 
   const path = require('path');
