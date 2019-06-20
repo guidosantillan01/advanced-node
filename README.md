@@ -1,5 +1,7 @@
 # Advanced Node Course
 
+[![Build Status](https://travis-ci.org/guidosantillan01/advanced-node.svg?branch=master)](https://travis-ci.org/guidosantillan01/advanced-node)
+
 Starting project for a course on Advanced Node @ Udemy by _Stephen Grider_
 
 ## Topics Covered
