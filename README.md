@@ -1,6 +1,6 @@
 # Advanced Node Course
 
-Starting project for a course on Advanced Node @ Udemy
+Starting project for a course on Advanced Node @ Udemy by _Stephen Grider_
 
 ## Topics Covered
 
