@@ -2,7 +2,7 @@ const Page = require('./helpers/page');
 
 let page;
 
-jest.setTimeout(10000); // To fix: Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout. problem
+// jest.setTimeout(10000); // To fix: Timeout - Async callback was not invoked within the 5000ms timeout specified by jest.setTimeout. problem
 
 beforeEach(async () => {
   page = await Page.build(); // here is the proxy
