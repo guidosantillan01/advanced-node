@@ -37,6 +37,40 @@ class CustomPage {
     // custom function
     return this.page.$eval(selector, el => el.innerHTML);
   }
+
+  get(path) {
+    return this.page.evaluate(_path => {
+      return fetch(_path, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          title: 'My Title',
+          content: 'My Content'
+        })
+      }).then(res => res.json());
+    }, path);
+  }
+
+  post(path, data) {
+    return this.page.evaluate(
+      (_path, _data) => {
+        // Should be a function that returns the fetch statement.
+        return fetch(_path, {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(_data)
+        }).then(res => res.json());
+      },
+      path,
+      data
+    );
+  }
 }
 
 module.exports = CustomPage;
