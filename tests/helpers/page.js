@@ -41,17 +41,13 @@ class CustomPage {
   get(path) {
     return this.page.evaluate(_path => {
       return fetch(_path, {
-        method: 'POST',
+        method: 'GET',
         credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          title: 'My Title',
-          content: 'My Content'
-        })
+        }
       }).then(res => res.json());
-    }, path); // We need to send path as an argument because of page.evaluate behavior
+    }, path);
   }
 
   post(path, data) {

@@ -11,7 +11,7 @@ afterEach(async () => {
   await page.close();
 });
 
-describe('When logged in', async () => {
+describe('When user is logged in', async () => {
   beforeEach(async () => {
     await page.login();
     await page.click('a.btn-floating');
