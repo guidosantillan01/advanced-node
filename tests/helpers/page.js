@@ -51,7 +51,7 @@ class CustomPage {
           content: 'My Content'
         })
       }).then(res => res.json());
-    }, path);
+    }, path); // We need to send path as an argument because of page.evaluate behavior
   }
 
   post(path, data) {
@@ -69,6 +69,14 @@ class CustomPage {
       },
       path,
       data
+    );
+  }
+
+  execRequests(actions) {
+    return Promise.all(
+      actions.map(({ method, path, data }) => {
+        return this[method](path, data);
+      })
     );
   }
 }
